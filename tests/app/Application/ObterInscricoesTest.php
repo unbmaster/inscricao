@@ -34,7 +34,7 @@ class ObterInscricoesTest extends TestCase
 
         $inscricoes = new ObterInscricoes();
         $data  = $inscricoes($params);
-
+echo '-----------> ';
         print_r($data);
         self::assertArrayHasKey('inscricoes', $data[0]);
         self::assertNotEmpty($data[0]['inscricoes']);
