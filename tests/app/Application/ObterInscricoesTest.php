@@ -8,7 +8,7 @@
 
 namespace Application\Tests;
 
-use Application\ObterPlanos;
+use Application\ObterInscricoes;
 use PHPUnit\Framework\TestCase;
 
 /**
