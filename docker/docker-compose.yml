@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+
+  inscricao:
+    build:
+      context: ../
+      dockerfile: ./.docker/Dockerfile
+    image: unbmaster/inscricao:1.0
+    container_name: inscricao
+    volumes:
+      - ../:/var/www
+      - app-data:/db
+    ports:
+      - "4433:443"
+    restart: always
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true
+
+volumes:
+  app-data:
