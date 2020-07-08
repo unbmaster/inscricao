@@ -32,7 +32,7 @@ class ObterInscricoesTest extends TestCase
             'x-correlation-id'  => 'e977ac8e-32ad-46c7-9803-1bb60cb63cad'
         ];
 
-        $inscricoes = new ObterPlanos();
+        $inscricoes = new ObterInscricoes();
         $data  = $inscricoes($params);
 
         print_r($data);
