@@ -23,5 +23,8 @@
             "Controller\\": "src/app/UI/Controller",
             "View\\": "src/app/UI/View"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
     }
 }
