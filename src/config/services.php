@@ -11,6 +11,6 @@
  */
 return [
     'plano' => [
-        'url'    => 'https://192.168.0.138:4432'
+        'url'    => 'planos'
     ]
 ];
