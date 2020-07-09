@@ -36,7 +36,7 @@ class ObterInscricoesTest extends TestCase
         $inscricoes = new ObterInscricoes();
         $data  = $inscricoes($params);
 
-        self::assertArrayHasKey('inscricoes', $data[0]);
+        self::assertArrayHasKey('inscricoes', $data);
     }
 
 }
