@@ -32,6 +32,7 @@ class InscricaoRepository implements InscricaoRepositoryInterface
         $statement->bindValue(1, $militarId);
         $res = $statement->execute();
 
+        $inscricoes = [];
         while ($row = $res->fetchArray()) {
             $inscricoes[] = [
                 'inscricaoId' => $row['inscricaoId'],

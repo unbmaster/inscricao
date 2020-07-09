@@ -8,7 +8,7 @@
 
 namespace Application\Tests;
 
-use Application\ObterInscricoes;
+use Application\RealizaInscricao;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,25 +18,27 @@ use PHPUnit\Framework\TestCase;
  * @author UnBMaster <unbmaster@outlook.com>
  * @version 0.1.0
  */
-class ObterInscricoesTest extends TestCase
+class RealizarInscricoesTest extends TestCase
 {
 
-
-    public function testObterInscricoesDoMilitar() {
+    public function testRealizarInscricaoDoMilitar() {
 
         $params = [
             'militarId'         => '1234567890',
-            'posto'             => '2 Ten',
+            'planoId'           => 1,
             'nome'              => 'Fulano',
+            'posto'             => '2 Ten',
             'email'             => 'fulano@mail.com',
+            'permissoes'        => ['ROLE_USER'],
             'token'             => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoibG9naW4iLCJleHAiOjU3MzkxMzY4OTg0MDAsIm5hbWUiOiJGdWxhbm8iLCJyYW5rIjoiMlx1MDBiYSBUZW4iLCJlbWFpbCI6ImZ1bGFub0BtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiIsIlJPTEVfQURNSU4iXX0.2DYmpCSANAP5gCZ4epasVXWCvb2pOjwahCsn2BoiHCQ',
             'x-correlation-id'  => 'e977ac8e-32ad-46c7-9803-1bb60cb63cad'
         ];
 
-        $inscricoes = new ObterInscricoes();
-        $data  = $inscricoes($params);
+        $inscricao = new RealizaInscricao();
+        $data  = $inscricao($params);
 
-        self::assertArrayHasKey('inscricoes', $data[0]);
+        self::assertArrayHasKey('inscricao', $data);
+        self::assertNotEmpty($data['inscricao']);
     }
 
 }

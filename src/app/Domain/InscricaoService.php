@@ -30,9 +30,20 @@ class InscricaoService
     {
         try {
 
-            # Recupera as incrições do militar
+            # Tenta recuperar as incrições do militar
             $repositorio = new InscricaoRepository;
             $inscricoes = $repositorio->getById($params['militarId']);
+
+            # Caso não tenha inscrições
+            if (!$inscricoes) return [
+                'usuario' => [
+                    'militarId' => $params['militarId'],
+                    'posto'     => $params['posto'],
+                    'nome'      => $params['nome'],
+                    'email'     => $params['email']
+                ],
+                'inscricoes'    => []
+            ];
 
             # Recupera os ids das inscrições
             $planoIds = array_column($inscricoes, 'planoId');
