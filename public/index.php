@@ -24,10 +24,10 @@ $auth = new Core\IdentificacaoMiddleware;
 
 $app->add(new Core\CorrelationIdMiddleware);
 
-$app->post('/inscricoes', 'Controller\InscricaoController:inscrever')->add($auth);;
+$app->post('/v1/inscricoes', 'Controller\InscricaoController:inscrever')->add($auth);
 
-$app->get('/inscricoes/militares/{id}', 'Controller\InscricaoController:listar')->add($auth);;
+$app->get('/v1/inscricoes/militares/{id}', 'Controller\InscricaoController:listar')->add($auth);
 
-$app->any( '/inscricao', 'Controller\HomeController:api');
+$app->any( '/v1/inscricao', 'Controller\HomeController');
 
 $app->run();
