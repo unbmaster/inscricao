@@ -34,8 +34,6 @@ class InscricaoService
             $repositorio = new InscricaoRepository;
             $inscricoes = $repositorio->getById($params['militarId']);
 
-print_r($inscricoes);
-
             # Caso não tenha inscrições
             if (!$inscricoes) return [
                 'usuario' => [
@@ -61,6 +59,10 @@ print_r($inscricoes);
                 $params['token'],
                 $params['correlationId']
             );
+            print_r($serviceURL);
+            print_r($params['token']);
+            print_r($params['correlationId']);
+            print_r($planos);
 
             # Lança exceção caso não haja dados remoto
             if (!$planos) throw new \Exception();
