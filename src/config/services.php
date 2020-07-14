@@ -11,6 +11,6 @@
  */
 return [
     'plano' => [
-        'url'    => 'plano'
+        'url'    => 'v1/plano'
     ]
 ];
