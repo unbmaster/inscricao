@@ -45,8 +45,6 @@ class InscricaoService
                 'inscricoes'    => []
             ];
 
-
-
             # Recupera os ids das inscrições
             $planoIds = array_column($inscricoes, 'planoId');
 
@@ -59,6 +57,8 @@ class InscricaoService
                 $params['token'],
                 $params['correlationId']
             );
+
+            echo $serviceURL;
 
 
             # Lança exceção caso não haja dados remoto
