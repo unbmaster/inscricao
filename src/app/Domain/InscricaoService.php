@@ -59,6 +59,8 @@ class InscricaoService
                 $params['token'],
                 $params['correlationId']
             );
+            var_dump($planoIds);
+            var_dump($planos);
 
             # Lança exceção caso não haja dados remoto
             if (!$planos) throw new \Exception();
