@@ -11,6 +11,6 @@
  */
 return [
     'plano' => [
-        'url'    => '/v1/plano'
+        'url'    => 'https://unbmaster.api'
     ]
 ];

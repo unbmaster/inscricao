@@ -51,7 +51,7 @@ class InscricaoService
             $planoIds = array_column($inscricoes, 'planoId');
 
             # Cria url do serviço remoto (planos)
-            $serviceURL = '/v1/planos?id=' . implode(',', $planoIds);
+            $serviceURL = Config::get('services.plano.url') . '/v1/planos?id=' . implode(',', $planoIds);
 
             # Chama serviço remoto para obter dados do plano
             $planos = RemoteAPI::callByGet(
@@ -59,8 +59,7 @@ class InscricaoService
                 $params['token'],
                 $params['correlationId']
             );
-            var_dump($planoIds);
-            var_dump($planos);
+
 
             # Lança exceção caso não haja dados remoto
             if (!$planos) throw new \Exception();
