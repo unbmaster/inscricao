@@ -51,7 +51,7 @@ class InscricaoService
             $planoIds = array_column($inscricoes, 'planoId');
 
             # Cria url do serviço remoto (planos)
-            $serviceURL = '/planos?id=' . implode(',', $planoIds);
+            $serviceURL = '/v1/planos?id=' . implode(',', $planoIds);
 
             # Chama serviço remoto para obter dados do plano
             $planos = RemoteAPI::callByGet(
