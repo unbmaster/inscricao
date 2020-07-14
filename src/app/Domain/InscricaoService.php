@@ -34,6 +34,8 @@ class InscricaoService
             $repositorio = new InscricaoRepository;
             $inscricoes = $repositorio->getById($params['militarId']);
 
+print_r($inscricoes);
+
             # Caso não tenha inscrições
             if (!$inscricoes) return [
                 'usuario' => [
@@ -44,6 +46,8 @@ class InscricaoService
                 ],
                 'inscricoes'    => []
             ];
+
+
 
             # Recupera os ids das inscrições
             $planoIds = array_column($inscricoes, 'planoId');
