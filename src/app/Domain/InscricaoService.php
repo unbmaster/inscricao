@@ -58,7 +58,7 @@ class InscricaoService
                 $params['correlationId']
             );
 
-            echo $serviceURL;
+            var_dump($planos);
 
 
             # Lança exceção caso não haja dados remoto
