@@ -77,11 +77,11 @@ class JWT
 //            }
 
 
-            if (!$token) {
-                $input = $request->getQueryParams();
-                $input     = filter_var_array($input, FILTER_SANITIZE_STRING);
-                $token = $input['token'];
-            }
+//            if (!$token) {
+//                $input = $request->getQueryParams();
+//                $input     = filter_var_array($input, FILTER_SANITIZE_STRING);
+//                return $token = $input['token'];
+//            }
 
 
 
