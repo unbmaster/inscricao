@@ -107,7 +107,7 @@ class JWT
      */
     public static function getPayloadFromToken($token)
     {
-        list($header, $payload, $signature) = explode('.', $token);
+        @list($header, $payload, $signature) = explode('.', $token);
         $payload = base64_decode($payload);
         $payload = json_decode($payload, true);
         return $payload;

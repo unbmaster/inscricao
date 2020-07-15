@@ -11,6 +11,6 @@
  */
 return [
     'plano' => [
-        'url'    => 'https://unbmaster.api'
+        'url'    => 'https://plano-prd'
     ]
 ];

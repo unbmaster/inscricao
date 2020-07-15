@@ -36,6 +36,6 @@ class RemoteAPI
                              "Content-Length: " . strlen($content) . "\r\n"
             ]
         ];
-        return file_get_contents($url, false, stream_context_create($stream_opts));
+        return @file_get_contents($url, false, stream_context_create($stream_opts));
      }
 }
