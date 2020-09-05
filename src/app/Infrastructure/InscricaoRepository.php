@@ -26,15 +26,15 @@ class InscricaoRepository implements InscricaoRepositoryInterface
      */
     public function getById($militarId) {
         $db=pg_connect ("host=db dbname=unbmaster port=5432 user=postgres password=example");
-        $result =   pg_query_params($db,"SELECT * FROM inscricao where militarId=$1", [$militarId]);
+        $result =   pg_query_params($db,'SELECT * FROM inscricao where militarId = $1', [$militarId]);
         $inscricoes = [];
         while ($row = pg_fetch_array($result)) {
             $inscricoes[] = [
-                'inscricaoId' => $row['inscricaoId'],
-                'militarId' => $row['militarId'],
-                'planoId' => $row['planoId'],
+                'inscricaoId' => $row['inscricaoid'],
+                'militarId' => $row['militarid'],
+                'planoId' => $row['planoid'],
                 'status' => $row['status'],
-                'InscritoEm' => $row['criadoEm']
+                'InscritoEm' => $row['criadoem']
             ];
         }
         return $inscricoes;
