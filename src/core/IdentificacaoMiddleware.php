@@ -34,7 +34,6 @@ class IdentificacaoMiddleware
             $response = $response->withHeader('Authorization',  "Bearer $token");
         }
         else {
-            $uri = $request->getUri();
             $response = new Response();
             return $response->withStatus(401); # 401 Unauthorized
         }

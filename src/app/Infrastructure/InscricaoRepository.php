@@ -25,15 +25,10 @@ class InscricaoRepository implements InscricaoRepositoryInterface
      * @return array
      */
     public function getById($militarId) {
-
-        $db = new \SQLite3('/db/inscricao.db');
-        $db->busyTimeout(5000);
-        $statement = $db->prepare('SELECT * FROM inscricao where militarId=?');
-        $statement->bindValue(1, $militarId);
-        $res = $statement->execute();
-
+        $db=pg_connect ("host=db dbname=unbmaster port=5432 user=postgres password=example");
+        $result =   pg_query_params($db,"SELECT * FROM inscricao where militarId=$1", [$militarId]);
         $inscricoes = [];
-        while ($row = $res->fetchArray()) {
+        while ($row = pg_fetch_array($result)) {
             $inscricoes[] = [
                 'inscricaoId' => $row['inscricaoId'],
                 'militarId' => $row['militarId'],
@@ -53,33 +48,29 @@ class InscricaoRepository implements InscricaoRepositoryInterface
      */
     public function add(Inscricao $inscricao) {
 
-        $db = new \SQLite3('/db/inscricao.db');
-        $db->busyTimeout(5000);
-        #$db->exec('PRAGMA journal_mode = wal;');
-
         $militarId   = $inscricao->getMilitarId();
         $planoId     = $inscricao->getPlanoId();
-        $inscricaoId = $db->querySingle("SELECT inscricaoId FROM inscricao WHERE militarId='{$militarId}' AND planoId='$planoId'");
+
+        $db=pg_connect ("host=db dbname=unbmaster port=5432 user=postgres password=example");
+        $result = pg_query($db, "SELECT inscricaoId FROM inscricao WHERE militarId='{$militarId}' AND planoId='$planoId'");
+        $dbdata = pg_fetch_array($result);
+        $inscricaoId = $dbdata['inscricaoid'];
 
         # Adiciona o militar no plano caso já não esteja inscrito
         if(!$inscricaoId) {
-            $statement = $db->prepare("INSERT INTO inscricao VALUES(null,?,?,?,?)");
-            $statement->bindValue(1, $inscricao->getMilitarId());
-            $statement->bindValue(2, $inscricao->getPlanoId());
-            $statement->bindValue(3, 0);
-            $statement->bindValue(4, $inscricao->getCriadoEm());
-            $statement->execute();
+            $result =   pg_query_params($db,"INSERT INTO inscricao (militarid,planoid,status,criadoem) VALUES($1,$2,$3,$4) RETURNING inscricaoid", [
+                            $inscricao->getMilitarId(),
+                            $inscricao->getPlanoId(),
+                            0,
+                            $inscricao->getCriadoEm()
+                        ]);
 
             # Recupera o inscricaoId cadastrado
-            $inscricaoId = $db->querySingle('SELECT last_insert_rowid()');
-            $inscricao->setInscricaoId($inscricaoId);
-
+            $dbdata = pg_fetch_array($result);
+            $inscricao->setInscricaoId($dbdata['inscricaoid']);
             return $inscricao;
         }
-
-        $db->close();
         unset($db);
-
         return false;
     }
 }

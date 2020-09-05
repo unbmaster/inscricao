@@ -23,7 +23,6 @@ class ObterInscricoes
 
         # Obter as inscrições de um militar
         $service = new InscricaoService();
-        $inscricoes = $service->ObterInscricoes($params);
-        return $inscricoes;
+        return $service->ObterInscricoes($params);
     }
 }

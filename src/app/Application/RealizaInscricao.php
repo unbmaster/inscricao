@@ -23,7 +23,6 @@ class RealizaInscricao
 
         # Inscrever o militar em um determinado plano (curso/estágio)
         $service  = new InscricaoService;
-        $dados = $service->realizarInscricao($params);
-        return $dados;
+        return $service->realizarInscricao($params);
     }
 }

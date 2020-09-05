@@ -35,15 +35,17 @@ class InscricaoService
             $inscricoes = $repositorio->getById($params['militarId']);
 
             # Caso não tenha inscrições
-            if (!$inscricoes) return [
-                'usuario' => [
-                    'militarId' => $params['militarId'],
-                    'posto'     => $params['posto'],
-                    'nome'      => $params['nome'],
-                    'email'     => $params['email']
-                ],
-                'inscricoes'    => []
-            ];
+            if (!$inscricoes) {
+                return [
+                    'usuario' => [
+                        'militarId' => $params['militarId'],
+                        'posto'     => $params['posto'],
+                        'nome'      => $params['nome'],
+                        'email'     => $params['email']
+                    ],
+                    'inscricoes'    => []
+                ];
+            }
 
             # Recupera os ids das inscrições
             $planoIds = array_column($inscricoes, 'planoId');
@@ -59,7 +61,9 @@ class InscricaoService
             );
 
             # Lança exceção caso não haja dados remoto
-            if (!$planos) throw new \Exception();
+            if (!$planos) {
+                throw new \Exception();
+            }
 
             # Prepara os dados da inscrição
             $planos = json_decode($planos, true);

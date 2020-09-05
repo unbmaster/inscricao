@@ -28,7 +28,6 @@ class InscricaoController
      */
     public function listar($request, $response)
     {
-        $input         = $request->getParsedBody();
         $token         = JWT::getTokenFromHeader($request);
         $correlationId = JWT::getCorrelationIdFromHeader($request);
         $payload       = JWT::getPayloadFromToken($token);

@@ -6,3 +6,13 @@ CREATE TABLE inscricao (
     status integer,
     criadoEm text
 );
+-- POSTGREE
+CREATE TABLE inscricao (
+    inscricaoId SERIAL,
+    militarId varchar,
+    planoId integer,
+    status integer,
+    criadoEm varchar
+);
+
+

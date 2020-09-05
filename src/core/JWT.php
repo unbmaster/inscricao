@@ -42,15 +42,16 @@ class JWT
         $signature = hash_hmac('sha256', "$header.$payload", $secret, true);
         $signature = self::base64UrlEncode($signature);
 
-        $token = "$header.$payload.$signature";
+        return "$header.$payload.$signature";
 
-        return $token;
     }
 
     public static function isValidToken($token) {
 
         # Split token
-        list($header, $payload, $signature) = explode('.', $token);
+        $token_array = explode('.', $token);
+        $header = $token_array[0];
+        $payload = $token_array[1];
 
         # Config
         $cfg = new Config();
@@ -77,8 +78,7 @@ class JWT
                 $input     = filter_var_array($input, FILTER_SANITIZE_STRING);
                 return $token = $input['token'];
             }
-            $token = str_replace('Bearer ', '', $token);
-            return $token;
+            return str_replace('Bearer ', '', $token);
         }
         catch (\Exception $e) {
             return false;
@@ -88,34 +88,23 @@ class JWT
     public static function getCorrelationIdFromHeader($request)
     {
         try {
-            $correlationId = $request->getHeaderLine('X-Correlation-Id');
-            return $correlationId;
+            return $request->getHeaderLine('X-Correlation-Id');
         }
         catch (\Exception $e) {
             return false;
         }
     }
 
-    /**
-     * @return array
-     */
-    public static function getRoles($token)
-    {
-        list($header, $payload, $signature) = explode('.', $token);
-        $payload = base64_decode($payload);
-        $payload = json_decode($payload, true);
-        return $payload['roles'];
-    }
 
     /**
      * @return array
      */
     public static function getPayloadFromToken($token)
     {
-        list($header, $payload, $signature) = explode('.', $token);
+        $token_array = explode('.', $token);
+        $payload = $token_array[1];
         $payload = base64_decode($payload);
-        $payload = json_decode($payload, true);
-        return $payload;
+        return json_decode($payload, true);
     }
 
     /**
@@ -124,10 +113,10 @@ class JWT
     public static function getPayloadFromRequest($request)
     {
         $token = self::getTokenFromHeader($request);
-        list($header, $payload, $signature) = explode('.', $token);
+        $token_array = explode('.', $token);
+        $payload = $token_array[1];
         $payload = base64_decode($payload);
-        $payload = json_decode($payload, true);
-        return $payload;
+        return json_decode($payload, true);
     }
 
     /**
@@ -135,7 +124,8 @@ class JWT
      */
     public static function isUserRole($token)
     {
-        list($header, $payload, $signature) = explode('.', $token);
+        $token_array = explode('.', $token);
+        $payload = $token_array[1];
         $payload = base64_decode($payload);
         $payload = json_decode($payload, true);
         return in_array('ROLE_USER', $payload['roles']);
@@ -146,7 +136,8 @@ class JWT
      */
     public static function isAdminRole($token)
     {
-        list($header, $payload, $signature) = explode('.', $token);
+        $token_array = explode('.', $token);
+        $payload = $token_array[1];
         $payload = base64_decode($payload);
         $payload = json_decode($payload, true);
         return in_array('ROLE_ADMIN', $payload['roles']);
