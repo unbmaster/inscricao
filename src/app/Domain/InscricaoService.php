@@ -61,20 +61,20 @@ class InscricaoService
             );
 
             # Lança exceção caso não haja dados remoto
-            if (!$planos) {
-                throw new \Exception();
-            }
-
-            # Prepara os dados da inscrição
-            $planos = json_decode($planos, true);
-            foreach ($inscricoes as &$inscricao) {
-                foreach ($planos as $plano) {
-                    if ($inscricao['planoId'] === $plano['planoId']) {
-                        unset($inscricao['militarId']);
-                        $inscricao['titulo'] = $plano['titulo'];
-                    }
-                }
-            }
+//            if (!$planos) {
+//                throw new \Exception();
+//            }
+//
+//            # Prepara os dados da inscrição
+//            $planos = json_decode($planos, true);
+//            foreach ($inscricoes as &$inscricao) {
+//                foreach ($planos as $plano) {
+//                    if ($inscricao['planoId'] === $plano['planoId']) {
+//                        unset($inscricao['militarId']);
+//                        $inscricao['titulo'] = $plano['titulo'];
+//                    }
+//                }
+//            }
 
             # Prepara dados de resposta
             return [
