@@ -115,17 +115,17 @@ class InscricaoService
             if ($inscricao) {
                 $broker = new InscricaoMessageBrokerRepository;
                 $inscricaoId = $inscricao->getInscricaoId();
-                $payload = [
-                    'inscricaoId' => $inscricaoId,
-                    'militarId'   => $params['militarId'],
-                    'planoId'     => $params['planoId'],
-                    'nome'        => $params['nome'],
-                    'posto'       => $params['posto'],
-                    'email'       => $params['email'],
-                    'permissoes'  => $params['permissoes'],
-                    'token'       => $params['token']
-                ];
-                $broker->publisher($payload);
+//                $payload = [
+//                    'inscricaoId' => $inscricaoId,
+//                    'militarId'   => $params['militarId'],
+//                    'planoId'     => $params['planoId'],
+//                    'nome'        => $params['nome'],
+//                    'posto'       => $params['posto'],
+//                    'email'       => $params['email'],
+//                    'permissoes'  => $params['permissoes'],
+//                    'token'       => $params['token']
+//                ];
+//                $broker->publisher($payload);
                 return [
                     'inscricao' => [
                         'inscricaoId' => $inscricaoId,
