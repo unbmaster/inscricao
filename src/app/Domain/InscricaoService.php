@@ -61,20 +61,20 @@ class InscricaoService
             );
 
             # Lança exceção caso não haja dados remoto
-//            if (!$planos) {
-//                throw new \Exception();
-//            }
-//
-//            # Prepara os dados da inscrição
-//            $planos = json_decode($planos, true);
-//            foreach ($inscricoes as &$inscricao) {
-//                foreach ($planos as $plano) {
-//                    if ($inscricao['planoId'] === $plano['planoId']) {
-//                        unset($inscricao['militarId']);
-//                        $inscricao['titulo'] = $plano['titulo'];
-//                    }
-//                }
-//            }
+            if (!$planos) {
+                throw new \Exception();
+            }
+
+            # Prepara os dados da inscrição
+            $planos = json_decode($planos, true);
+            foreach ($inscricoes as &$inscricao) {
+                foreach ($planos as $plano) {
+                    if ($inscricao['planoId'] === $plano['planoId']) {
+                        unset($inscricao['militarId']);
+                        $inscricao['titulo'] = $plano['titulo'];
+                    }
+                }
+            }
 
             # Prepara dados de resposta
             return [
@@ -115,17 +115,17 @@ class InscricaoService
             if ($inscricao) {
                 $broker = new InscricaoMessageBrokerRepository;
                 $inscricaoId = $inscricao->getInscricaoId();
-//                $payload = [
-//                    'inscricaoId' => $inscricaoId,
-//                    'militarId'   => $params['militarId'],
-//                    'planoId'     => $params['planoId'],
-//                    'nome'        => $params['nome'],
-//                    'posto'       => $params['posto'],
-//                    'email'       => $params['email'],
-//                    'permissoes'  => $params['permissoes'],
-//                    'token'       => $params['token']
-//                ];
-//                $broker->publisher($payload);
+                $payload = [
+                    'inscricaoId' => $inscricaoId,
+                    'militarId'   => $params['militarId'],
+                    'planoId'     => $params['planoId'],
+                    'nome'        => $params['nome'],
+                    'posto'       => $params['posto'],
+                    'email'       => $params['email'],
+                    'permissoes'  => $params['permissoes'],
+                    'token'       => $params['token']
+                ];
+                $broker->publisher($payload);
                 return [
                     'inscricao' => [
                         'inscricaoId' => $inscricaoId,
