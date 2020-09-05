@@ -26,7 +26,7 @@ class Config
         return self::run($path);
     }
 
-    public function run($path) {
+    public static function run($path) {
         $node = explode('.', $path);
         $result = null;
         $filename = filter_var ( $node[0], FILTER_SANITIZE_STRING);
